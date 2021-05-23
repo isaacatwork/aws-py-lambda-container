@@ -1,0 +1,43 @@
+---
+    version: '2'
+    services:
+        minio:
+            image: minio/minio:latest
+            hostname: minio
+            ports: 
+                - 8081:9000
+            volumes: 
+                - ./data:/disk1
+            environment: 
+                MINIO_ACCESS_KEY: "${MINIO_ACCESS_KEY}"
+                MINIO_SECRET_KEY: "${MINIO_SECRET_KEY}"
+            command: server /disk1
+
+        aws_lambda:
+            build: .
+            hostname: aws_lambda
+            depends_on:
+                - minio
+            environment: 
+                AWS_ACCESS_KEY_ID: "${MINIO_ACCESS_KEY}"
+                AWS_SECRET_ACCESS_KEY: "${MINIO_SECRET_KEY}"
+            ports: 
+                - 9001:8080
+        
+        # this service would be used to generate sample data.
+        # Uncomment this if you don't want to exec command into the aws_lambda container
+        # py-runner:
+        #     image: python:3.8-slim-buster
+        #     hostname: py-runner
+        #     depends_on:
+        #         - minio
+        #     volumes: 
+        #         - "./simple_py:/temp/simple_py"
+        #     environment: 
+        #             AWS_ACCESS_KEY_ID: "${MINIO_ACCESS_KEY}"
+        #             AWS_SECRET_ACCESS_KEY: "${MINIO_SECRET_KEY}"
+            
+        #     # This command installs dependencies for fake data generation
+        #     command: bash -c "
+        #         pip install -r /temp/simple_py/requirements.txt
+        #         && python /temp/simple_py/datagenerator.py -n 10_000 -b testbucket"
