@@ -138,3 +138,4 @@ if __name__ == "__main__":
     bucket_name = args.get("bucket")
     create_bucket(bucket_name=bucket_name)
     employee_data_generator(bucket_name=bucket_name, num_of_rows=num_of_rows)
+    print("Data generation complete")
