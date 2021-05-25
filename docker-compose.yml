@@ -1,0 +1,25 @@
+---
+    version: '2'
+    services:
+        minio:
+            image: minio/minio:latest
+            container_name: minio
+            ports: 
+                - 8081:9000
+            volumes: 
+                - ./data:/disk1
+            environment: 
+                MINIO_ACCESS_KEY: "${MINIO_ACCESS_KEY}"
+                MINIO_SECRET_KEY: "${MINIO_SECRET_KEY}"
+            command: server /disk1
+
+        aws_lambda:
+            build: .
+            container_name: aws_lambda
+            depends_on:
+                - minio
+            environment: 
+                AWS_ACCESS_KEY_ID: "${MINIO_ACCESS_KEY}"
+                AWS_SECRET_ACCESS_KEY: "${MINIO_SECRET_KEY}"
+            ports: 
+                - 9001:8080
