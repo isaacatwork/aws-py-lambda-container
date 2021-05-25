@@ -46,5 +46,5 @@ This command generates the fake employee data in a bucket. You can change the nu
  curl -XPOST "http://localhost:9001/2015-03-31/functions/function/invocations" -d '{"years_of_service": 5, "bucket":"testbucket", "key": "sample.parquet","destination": "s3://testbucket/sample_result.csv"}'
  ```
 
-Open a http://localhost:8081/minio/ in a browser. Use credentials in the .env file to login and you should see the source and result file in the bucket.
+Open http://localhost:8081/minio/ in a browser. Use credentials in the .env file to login and you should see the source and result files in the bucket.
 
