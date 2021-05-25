@@ -1,7 +1,7 @@
 import datetime
 import json
 import logging
-from typing import Dict
+from typing import Dict, Any
 
 import pyarrow.parquet as pq
 import s3fs
@@ -10,7 +10,7 @@ client_kwargs = {"client_kwargs": {"endpoint_url": "http://minio:9000"}} # this 
 s3 = s3fs.S3FileSystem(**client_kwargs)
 
 
-def get_employees_anniversary(event: Dict[str, str], context: Dict[str, str]) -> str:
+def get_employees_anniversary(event: Dict[str, str], context: Any) -> str:
     """
     lambda handler to desmostrate using containers with third party packages like pandas and
     integration with s3.

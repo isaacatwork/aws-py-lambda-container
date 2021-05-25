@@ -1,4 +1,4 @@
-boto3 #botocore version for s3f3 and boto3 doesn't play nicely. Pip will figure out the best combination. slow but okay for now
+boto3
 faker~=3.0.0
 pandas~=1.2.4
 pyarrow~=4.0
