@@ -6,7 +6,7 @@ from typing import Dict, Any
 import pyarrow.parquet as pq
 import s3fs
 
-client_kwargs = {"client_kwargs": {"endpoint_url": "http://minio:9000"}} # this is used to simulation s3
+client_kwargs = {"client_kwargs": {"endpoint_url": "http://minio:9000"}} # this is used to simulate s3
 s3 = s3fs.S3FileSystem(**client_kwargs)
 
 
